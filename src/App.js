@@ -21,10 +21,27 @@ function Logo() {
 }
 
 function Form() {
+
+  function handleSubmit(e) {
+// privent the default form submission behavior
+
+    e.preventDefault();
+  }
   return (
-    <div className="add-form">
+    
+    <form className="add-form" onSubmit={handleSubmit}>
       <h3>what do you need for this trip</h3>
-    </div>
+      <select>
+        {/* Create options for quantities 1 to 20 */}
+        {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
+          <option key={num} value={num}>
+            {num}
+          </option>
+        ))}
+      </select>
+      <input type="text" placeholder="item..." />
+      <button>Add</button>
+    </form>
   );
 }
 
@@ -43,9 +60,7 @@ function PakingList() {
 function Item({ item }) {
   return (
     <li>
-    
-      <span style={{textDecoration:item.packed?"line-through":""}}>
-        
+      <span style={{ textDecoration: item.packed ? "line-through" : "" }}>
         {item.quantity}-{item.description}
       </span>
       <button>❌</button>
