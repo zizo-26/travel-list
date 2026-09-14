@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const initialItems = [
   { id: 1, description: "passports", quantity: 2, packed: true },
   { id: 2, description: "sunglasses", quantity: 1, packed: true },
@@ -22,9 +24,10 @@ function Logo() {
 
 function Form() {
 
+  const [description,setdescription]=useState("");
+
   function handleSubmit(e) {
 // privent the default form submission behavior
-
     e.preventDefault();
   }
   return (
@@ -39,8 +42,9 @@ function Form() {
           </option>
         ))}
       </select>
-      <input type="text" placeholder="item..." />
+      <input type="text" placeholder="item..." value={description} onChange={(e)=> setdescription(e.target.value)} />
       <button>Add</button>
+      {console.log(description)}
     </form>
   );
 }
