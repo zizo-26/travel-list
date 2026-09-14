@@ -1,4 +1,10 @@
 
+const initialItems = [
+  {id:1, description:"passports", quantity:2, packed:true},
+  {id:2, description:"sunglasses", quantity:1, packed:true},
+  {id:3, description:"water bottles", quantity:4, packed:false},
+  {id:4, description:"snacks", quantity:6, packed:false},
+];
 
 function App() {
   return (
