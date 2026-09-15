@@ -1,12 +1,5 @@
 import { useState } from "react";
 
-const initialItems = [
-  { id: 1, description: "passports", quantity: 2, packed: true },
-  { id: 2, description: "sunglasses", quantity: 1, packed: true },
-  { id: 3, description: "water bottles", quantity: 4, packed: false },
-  { id: 4, description: "snacks", quantity: 6, packed: false },
-];
-
 function App() {
 const [item,setitem]=useState([]);
 
@@ -14,11 +7,19 @@ function addItem(item){
 
     setitem(items=>[...items,item])
   }
+
+
+  function handelDelete(id){
+
+     setitem(items=> items.filter(item=> item.id !== id))
+
+
+  }
   return (
     <div>
       <Logo />
       <Form   onAddItems={addItem} />
-      <PakingList  item={item} setitem={setitem}/>
+      <PakingList  item={item} ondelete={handelDelete}/>
       <Stats />
     </div>
   );
@@ -72,25 +73,26 @@ function Form({onAddItems}) {
   );
 }
 
-function PakingList({item}) {
+function PakingList({item ,ondelete}) {
   return (
     <div className="list">
       <ul>
         {item.map((item) => (
-          <Item item={item} />
+          <Item item={item}   ondelete={ondelete} />
         ))}
       </ul>
     </div>
   );
 }
+// i got an error in the delete function because i forget to return the new array after filtering it
 
-function Item({ item }) {
+function Item({ item,ondelete }) {
   return (
     <li>
       <span style={{ textDecoration: item.packed ? "line-through" : "" }}>
         {item.quantity}-{item.description}
       </span>
-      <button>❌</button>
+      <button onClick={()=>ondelete(item.id)} >❌</button>
     </li>
   );
 }
