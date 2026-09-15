@@ -8,11 +8,13 @@ const initialItems = [
 ];
 
 function App() {
+const [item,setitem]=useState([]);
+
   return (
     <div>
       <Logo />
-      <Form />
-      <PakingList />
+      <Form  item={item} setitem={setitem} />
+      <PakingList  item={item} setitem={setitem}/>
       <Stats />
     </div>
   );
@@ -22,10 +24,10 @@ function Logo() {
   return <h1>far away</h1>;
 }
 
-function Form() {
+function Form({item, setitem}) {
   const [description, setdescription] = useState("");
   const [quantity, setquantity] = useState(1);
-const [item,setitem]=useState([]);
+
 
   function addItem(item){
 
@@ -69,11 +71,11 @@ const [item,setitem]=useState([]);
   );
 }
 
-function PakingList() {
+function PakingList({item}) {
   return (
     <div className="list">
       <ul>
-        {initialItems.map((item) => (
+        {item.map((item) => (
           <Item item={item} />
         ))}
       </ul>
