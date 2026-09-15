@@ -13,13 +13,17 @@ function addItem(item){
 
      setitem(items=> items.filter(item=> item.id !== id))
 
+  }
 
+  function hadelToggleItem(id){
+
+    setitem(items=> items.map((item)=> item.id ===id? {...item,packed: !item.packed } :item))
   }
   return (
     <div>
       <Logo />
       <Form   onAddItems={addItem} />
-      <PakingList  item={item} ondelete={handelDelete}/>
+      <PakingList  item={item} ondelete={handelDelete} onToggle={hadelToggleItem}/>
       <Stats />
     </div>
   );
@@ -73,12 +77,12 @@ function Form({onAddItems}) {
   );
 }
 
-function PakingList({item ,ondelete}) {
+function PakingList({item ,ondelete, onToggle}) {
   return (
     <div className="list">
       <ul>
         {item.map((item) => (
-          <Item item={item}   ondelete={ondelete} />
+          <Item item={item}   ondelete={ondelete} onToggle={onToggle} />
         ))}
       </ul>
     </div>
@@ -86,9 +90,10 @@ function PakingList({item ,ondelete}) {
 }
 // i got an error in the delete function because i forget to return the new array after filtering it
 
-function Item({ item,ondelete }) {
+function Item({ item,ondelete, onToggle }) {
   return (
     <li>
+      <input type="checkbox"   onChange={()=> onToggle(item.id)}/>
       <span style={{ textDecoration: item.packed ? "line-through" : "" }}>
         {item.quantity}-{item.description}
       </span>
