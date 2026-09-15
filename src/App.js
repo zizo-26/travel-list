@@ -25,6 +25,7 @@ function Logo() {
 function Form() {
 
   const [description,setdescription]=useState("");
+  const [Q,setQ]=useState("")
 
   function handleSubmit(e) {
 // privent the default form submission behavior
@@ -34,7 +35,8 @@ function Form() {
     
     <form className="add-form" onSubmit={handleSubmit}>
       <h3>what do you need for this trip</h3>
-      <select>
+      <select value={Q} onChange={(e)=>setQ(e.target.value)}>
+        {console.log(Q)}
         {/* Create options for quantities 1 to 20 */}
         {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
           <option key={num} value={num}>
