@@ -10,10 +10,14 @@ const initialItems = [
 function App() {
 const [item,setitem]=useState([]);
 
+function addItem(item){
+
+    setitem(items=>[...items,item])
+  }
   return (
     <div>
       <Logo />
-      <Form  item={item} setitem={setitem} />
+      <Form   onAddItems={addItem} />
       <PakingList  item={item} setitem={setitem}/>
       <Stats />
     </div>
@@ -24,15 +28,12 @@ function Logo() {
   return <h1>far away</h1>;
 }
 
-function Form({item, setitem}) {
+function Form({onAddItems}) {
   const [description, setdescription] = useState("");
   const [quantity, setquantity] = useState(1);
 
 
-  function addItem(item){
-
-    setitem(items=>[...items,item])
-  }
+  
 
   function handleSubmit(e) {
     // privent the default form submission behavior
@@ -41,8 +42,8 @@ function Form({item, setitem}) {
     if (!description) return;
 
     const newItems = { description, quantity, packed: false, id: Date.now() };
-    addItem(newItems)
-    console.log(item);
+    onAddItems(newItems)
+  
     setdescription("");
     setquantity("");
   }
