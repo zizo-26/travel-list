@@ -23,20 +23,29 @@ function Logo() {
 }
 
 function Form() {
-
-  const [description,setdescription]=useState("");
-  const [Q,setQ]=useState("")
+  const [description, setdescription] = useState("");
+  const [quantity, setquantity] = useState(1);
 
   function handleSubmit(e) {
-// privent the default form submission behavior
+    // privent the default form submission behavior
     e.preventDefault();
+
+
+
+if(!description) return ;
+
+const newItems={description,quantity,packed:false,id:Date.now()}
+console.log(newItems);
+
+setdescription("");
+
+
   }
   return (
-    
     <form className="add-form" onSubmit={handleSubmit}>
       <h3>what do you need for this trip</h3>
-      <select value={Q} onChange={(e)=>setQ(e.target.value)}>
-        {console.log(Q)}
+      <select value={quantity} onChange={(e) => setquantity(Number(e.target.value))}>
+        {console.log(quantity)}
         {/* Create options for quantities 1 to 20 */}
         {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
           <option key={num} value={num}>
@@ -44,7 +53,12 @@ function Form() {
           </option>
         ))}
       </select>
-      <input type="text" placeholder="item..." value={description} onChange={(e)=> setdescription(e.target.value)} />
+      <input
+        type="text"
+        placeholder="item..."
+        value={description}
+        onChange={(e) => setdescription(e.target.value)}
+      />
       <button>Add</button>
       {console.log(description)}
     </form>
